@@ -27,7 +27,7 @@ function initWeb3() {
         web3Provider = web3.currentProvider;
     } else {
         // If no injected web3 instance is detected, fallback to the TestRPC
-        web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+        web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
     }
     web3 = new Web3(web3Provider);
     return initContract();
@@ -164,12 +164,12 @@ function validVoter(){
 
 function sendVote(candidate) {
     var voteInstance;
+    console.log(web3.eth, candidate);
 
     web3.eth.getAccounts(function(error, accounts) {
         if (error) {
             console.log(error);
         }
-
         var account = accounts[0];
 
         contracts.Vote.deployed().then(function(instance) {

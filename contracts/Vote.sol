@@ -1,41 +1,41 @@
-pragma solidity ^0.4.4;
+pragma solidity >=0.4.4;
 
 contract Vote{
     //maps each address to a boolean (has this key voted yet)
     //mapping (bytes32 => bool) hasVoted;
     mapping(address => int) voterLog;
-    
+
     //array of candidate strings
     bytes32[] public candidates;
-    
+
     //maps each candidate name to an integer holding their votes
     mapping (bytes32 => uint) votes;
-        
+
     //Constructor takes in an array of candidates
-    function Vote(bytes32[] args, address[] addresses){
+    constructor(bytes32[] memory args, address[] memory addresses) public{
         for(uint i = 0; i < addresses.length; i++){
             voterLog[addresses[i]] = -1;
         }
         candidates = args;
     }
-    
+
     /* --- PUBLIC FUNCTIONS --- */
-    
+
     //returns the number of candidates
     function getNumCandidates() public returns (uint256) {
         return candidates.length;
-    }    
-    
+    }
+
     //returns the name of the nth candidate
     function getCandidate(uint8 n) public returns (bytes32){
         return candidates[n];
     }
-    
+
     //returns the number of votes this candidate has recieved
     function getVotesForCandidate(bytes32 name) public returns (uint){
         return votes[name];
     }
-    
+
     //returns true if vote was successful, false otherwise
     function sendVote(bytes32 name) public returns (bool){
         if (!eligible()){
@@ -62,9 +62,9 @@ contract Vote{
         }
         return true;
     }
-    
+
     //returns the address of the caller
     function caller() public returns (address){
         return msg.sender;
-    }   
+    }
 }

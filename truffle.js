@@ -13,7 +13,7 @@ module.exports = {
 }
   },
    rpc: {
- host: 'localhost',
- post:8080
+ host: '127.0.0.1',
+ post: 7545
    }
 };
